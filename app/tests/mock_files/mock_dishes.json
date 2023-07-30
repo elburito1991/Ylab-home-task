@@ -1,0 +1,33 @@
+[
+    {
+        "title": "My dish 1",
+        "description": "My dish description 1",
+        "price": 3.14
+
+    },
+    {
+        "title": "My dish 2",
+        "description": "My dish description 2",
+        "price": 3.14
+    },
+        {
+        "title": "My dish 3",
+        "description": "My dish description 3",
+        "price": 3.14
+    },
+        {
+        "title": "My dish 4",
+        "description": "My dish description 4",
+        "price": 3.14
+    },
+        {
+        "title": "My dish 5",
+        "description": "My dish description 5",
+        "price": 3.14
+    },
+        {
+        "title": "My dish 6",
+        "description": "My dish description 6",
+        "price": 3.14
+    }
+]
