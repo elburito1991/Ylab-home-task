@@ -1,8 +1,31 @@
 - В примере ниже проставлены дефолтные параметры для информативности:
 
+.env:
 - Рабочая БД:
+MODE=DEV
+
 DB_HOST=localhost
-DB_PORT=5432
+DB_PORT=5433
 DB_USER=postgres
 DB_PASS=postgres
 DB_NAME=<имя вашей бд без ковычек>
+
+- Тестовая БД:
+TEST_DB_HOST=localhost
+TEST_DB_PORT=5433
+TEST_DB_USER=postgres
+TEST_DB_PASS=postgres
+TEST_DB_NAME=<имя вашей тестовой бд без ковычек>
+
+.env-app:
+MODE=DEV
+
+DB_HOST=db
+DB_PORT=5432
+DB_USER=postgres
+DB_PASS=postgres
+DB_NAME=ylab_project
+
+POSTGRES_DB=ylab_project
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
