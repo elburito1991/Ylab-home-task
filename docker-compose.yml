@@ -35,13 +35,32 @@ services:
       timeout: 30s
       retries: 5
       start_period: 80s
-      
+
+  db_tests:
+    image: postgres:15.1-alpine
+    container_name: ylab_test_db
+    volumes:
+      - tests_postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: test_ylab_project
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGUSER: postgres
+    networks:
+      - ylab_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-U"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 80s
 
 networks:
   ylab_network:
     name: ylab_network
 volumes:
   postgres_data:
+  tests_postgres_data:
   shared-volume:
 
 
