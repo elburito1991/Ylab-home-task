@@ -25,6 +25,11 @@ services:
     container_name: ylab_test_db
     volumes:
       - tests_postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: test_ylab_project
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGUSER: postgres
     networks:
       - ylab_network
     healthcheck:
