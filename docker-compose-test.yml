@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  ylab_project:
+    image: ylab_image
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ylab_app
+    env_file:
+      - .env-test
+    volumes:
+      - shared-volume:/app/generated_files
+    networks:
+      - ylab_network
+    depends_on:
+      db_tests:
+        condition: service_healthy
+    command: sh -c "alembic upgrade head && gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+
+
+  db_tests:
+    image: postgres:15.1-alpine
+    container_name: ylab_test_db
+    volumes:
+      - tests_postgres_data:/var/lib/postgresql/data/
+    networks:
+      - ylab_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-U"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 80s
+
+networks:
+  ylab_network:
+    name: ylab_network
+volumes:
+  tests_postgres_data:
+  shared-volume:
+
+
+
