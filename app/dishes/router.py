@@ -8,12 +8,12 @@ from app.dishes.service import DishService
 from app.dishes.shemas import SDishAddIn, SDishAddOut, SDishUpdate
 
 router = APIRouter(
-    prefix="/menus",
-    tags=["Блюда"]
+    prefix='/menus',
+    tags=['Блюда']
 )
 
 
-@router.get("/{menu_id}/submenus/{submenu_id}/dishes",
+@router.get('/{menu_id}/submenus/{submenu_id}/dishes',
             response_model=list[SDishAddOut], status_code=200)
 @version(1)
 async def get_dishes(submenu_id: uuid.UUID, dish_service: DishService = Depends()) -> list[SDishAddOut]:
@@ -21,7 +21,7 @@ async def get_dishes(submenu_id: uuid.UUID, dish_service: DishService = Depends(
     return jsonable_encoder(result)
 
 
-@router.get("/{menu_id}/submenus/{submenu_id}/dishes/{dish_id}",
+@router.get('/{menu_id}/submenus/{submenu_id}/dishes/{dish_id}',
             response_model=SDishAddOut, status_code=200)
 @version(1)
 async def get_dish(submenu_id: uuid.UUID, dish_id: uuid.UUID, dish_service: DishService = Depends()) -> SDishAddOut:
@@ -29,7 +29,7 @@ async def get_dish(submenu_id: uuid.UUID, dish_id: uuid.UUID, dish_service: Dish
     return jsonable_encoder(result)
 
 
-@router.post("/{menu_id}/submenus/{submenu_id}/dishes",
+@router.post('/{menu_id}/submenus/{submenu_id}/dishes',
              response_model=SDishAddOut, status_code=201)
 @version(1)
 async def add_dish(
@@ -40,7 +40,7 @@ async def add_dish(
     return jsonable_encoder(result)
 
 
-@router.patch("/{menu_id}/submenus/{submenu_id}/dishes/{dish_id}", response_model=SDishAddOut, status_code=200)
+@router.patch('/{menu_id}/submenus/{submenu_id}/dishes/{dish_id}', response_model=SDishAddOut, status_code=200)
 @version(1)
 async def update_dish(
         submenu_id: uuid.UUID, dish_id: uuid.UUID, dish: SDishUpdate,
@@ -50,7 +50,7 @@ async def update_dish(
     return jsonable_encoder(result)
 
 
-@router.delete("/{menu_id}/submenus/{submenu_id}/dishes/{dish_id}", status_code=200)
+@router.delete('/{menu_id}/submenus/{submenu_id}/dishes/{dish_id}', status_code=200)
 @version(1)
 async def delete_dish(
         menu_id: uuid.UUID, submenu_id: uuid.UUID, dish_id: uuid.UUID,

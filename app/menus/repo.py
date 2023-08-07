@@ -32,7 +32,7 @@ class MenuRepository:
         except IntegrityError:
             raise HTTPException(
                 status_code=409,
-                detail="Title must be uniq"
+                detail='Title must be uniq'
             )
         else:
             return new_menu
@@ -44,7 +44,7 @@ class MenuRepository:
             raise MenuDontExistsException
 
         update_data = data.model_dump(exclude_unset=True)
-        filters = {"id": menu_id}
+        filters = {'id': menu_id}
 
         try:
             updated_menu = await MenusDAO.update_item(filters, **update_data)
@@ -52,7 +52,7 @@ class MenuRepository:
         except IntegrityError:
             raise HTTPException(
                 status_code=409,
-                detail="Title already exist, must be uniq"
+                detail='Title already exist, must be uniq'
             )
         else:
             return updated_menu
@@ -63,10 +63,10 @@ class MenuRepository:
         if not menu:
             raise MenuDontExistsException
 
-        filters = {"id": menu_id}
+        filters = {'id': menu_id}
         await MenusDAO.delete_item(filters)
 
         return {
-            "status": True,
-            "message": "The menu has been deleted"
+            'status': True,
+            'message': 'The menu has been deleted'
         }

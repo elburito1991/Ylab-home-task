@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 class Menus(Base):
-    __tablename__ = "menus"
+    __tablename__ = 'menus'
 
     id: Mapped[uuid] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title: Mapped[str] = mapped_column(String, unique=True, nullable=False)
@@ -19,4 +19,4 @@ class Menus(Base):
     submenus_count: Mapped[int] = mapped_column(Integer, nullable=True, default=0)
     dishes_count: Mapped[int] = mapped_column(Integer, nullable=True, default=0)
 
-    submenus: Mapped[list["Submenus"]] = relationship(back_populates="menu")
+    submenus: Mapped[list['Submenus']] = relationship(back_populates='menu')

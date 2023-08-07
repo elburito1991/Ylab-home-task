@@ -1,11 +1,9 @@
 import sys
 from logging.config import fileConfig
-from os.path import dirname, abspath
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from os.path import abspath, dirname
 
 from alembic import context
+from sqlalchemy import engine_from_config, pool
 
 from app.config import settings
 
@@ -14,7 +12,7 @@ sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-config.set_main_option("sqlalchemy.url", f"{settings.DATABASE_URL}?async_fallback=True")
+config.set_main_option('sqlalchemy.url', f'{settings.DATABASE_URL}?async_fallback=True')
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -25,10 +23,10 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from app.database import Base # noqa
-from app.menus.models import Menus # noqa
-from app.submenus.models import Submenus # noqa
-from app.dishes.models import Dishes # noqa
+from app.database import Base  # noqa
+from app.dishes.models import Dishes  # noqa
+from app.menus.models import Menus  # noqa
+from app.submenus.models import Submenus  # noqa
 
 target_metadata = Base.metadata
 
@@ -50,12 +48,12 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = config.get_main_option('sqlalchemy.url')
     context.configure(
         url=url,
         target_metadata=target_metadata,
         literal_binds=True,
-        dialect_opts={"paramstyle": "named"},
+        dialect_opts={'paramstyle': 'named'},
     )
 
     with context.begin_transaction():
@@ -71,7 +69,7 @@ def run_migrations_online() -> None:
     """
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
-        prefix="sqlalchemy.",
+        prefix='sqlalchemy.',
         poolclass=pool.NullPool,
     )
 

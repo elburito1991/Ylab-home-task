@@ -10,7 +10,8 @@ repos:
     -   id: check-case-conflict  # проверяет файлы, которые могут конфликтовать в файловых системах без учета регистра.
     -   id: check-merge-conflict  # проверяет файлы, содержащие конфликтные строки слияния.
     -   id: double-quote-string-fixer  # заменяет " на '
-    -   id: end-of-file-fixer  # добавляет пустую строку в конце файла
+
+
 
 # Отсортировывает импорты в проекте
 -   repo: https://github.com/pycqa/isort
@@ -25,6 +26,7 @@ repos:
     rev: v2.31.1
     hooks:
     -   id: pyupgrade
+        exclude: 'migrations'
         args: [--py310-plus]
 
 # Форматирует код под PEP8
@@ -48,3 +50,4 @@ repos:
     hooks:
     -   id: mypy
         exclude: 'migrations'
+        additional_dependencies: [types-requests, types-redis]

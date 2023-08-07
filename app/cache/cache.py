@@ -8,7 +8,7 @@ from app.config import settings
 
 
 class CacheItems:
-    redis_conf = aioredis.from_url(f"redis://{settings.REDIS_HOST}", decode_responses=False)
+    redis_conf = aioredis.from_url(f'redis://{settings.REDIS_HOST}', decode_responses=False)
 
     @classmethod
     async def set_cache(cls, request: str, response: Any) -> None:
@@ -19,8 +19,8 @@ class CacheItems:
     @classmethod
     async def get_cache(cls, request: str) -> list[RowMapping] | RowMapping:
         async with cls.redis_conf as redis:
-            request = bytes(request, "utf-8")
-            cache = await redis.get(request)
+            byte_request = bytes(request, 'utf-8')
+            cache = await redis.get(byte_request)
             if cache:
                 cache = pickle.loads(cache)
             return cache

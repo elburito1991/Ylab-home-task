@@ -15,6 +15,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     command: sh -c "alembic upgrade head && gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000"
     ports:
       - "8000:8000"
@@ -55,6 +57,20 @@ services:
       retries: 5
       start_period: 80s
 
+  redis:
+    image: redis
+    container_name: redis
+    environment:
+      - .env-app
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 10s
+      retries: 200
+
+
 networks:
   ylab_network:
     name: ylab_network
@@ -62,6 +78,3 @@ volumes:
   postgres_data:
   tests_postgres_data:
   shared-volume:
-
-
-

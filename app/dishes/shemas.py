@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic import BaseModel, field_validator
 
 
@@ -15,12 +13,12 @@ class SDishAddOut(BaseModel):
     description: str
     price: float
 
-    @field_validator("price", mode="plain")
+    @field_validator('price', mode='plain')
     def round_float(cls, v):
-        return f"{v:.2f}"
+        return f'{v:.2f}'
 
 
 class SDishUpdate(BaseModel):
-    title: Optional[str] = None
-    description: Optional[str] = None
-    price: Optional[float] = None
+    title: str | None = None
+    description: str | None = None
+    price: float | None = None

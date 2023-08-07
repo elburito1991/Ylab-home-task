@@ -1,15 +1,16 @@
 import uuid
+from typing import Any
 
-from sqlalchemy import delete, insert, select, update
+from sqlalchemy import RowMapping, delete, insert, select, update
 
 from app.database import async_session_maker
 
 
 class BaseDAO:
-    model = None
+    model: Any = None
 
     @classmethod
-    async def find_one_or_none(cls, **filter_by) -> model:
+    async def find_one_or_none(cls, **filter_by) -> RowMapping:
         async with async_session_maker() as session:
             query = select(cls.model.__table__.columns).filter_by(**filter_by)
             cursor_obj = await session.execute(query)
@@ -17,7 +18,7 @@ class BaseDAO:
             return result
 
     @classmethod
-    async def find_all(cls, **filter_by) -> list[model]:
+    async def find_all(cls, **filter_by) -> list[RowMapping]:
         async with async_session_maker() as session:
             query = select(cls.model.__table__.columns).filter_by(**filter_by)
             result = await session.execute(query)

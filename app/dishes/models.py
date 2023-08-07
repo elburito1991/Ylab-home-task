@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 class Dishes(Base):
-    __tablename__ = "dishes"
+    __tablename__ = 'dishes'
 
     id: Mapped[uuid] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title: Mapped[str] = mapped_column(String, unique=True, nullable=False)
@@ -20,7 +20,6 @@ class Dishes(Base):
 
     submenu_id: Mapped[uuid] = mapped_column(
         UUID(as_uuid=True),
-        ForeignKey("submenus.id", ondelete="CASCADE", onupdate="CASCADE"),
+        ForeignKey('submenus.id', ondelete='CASCADE', onupdate='CASCADE'),
     )
-    submenus: Mapped["Submenus"] = relationship(back_populates="dishes")
-
+    submenus: Mapped['Submenus'] = relationship(back_populates='dishes')

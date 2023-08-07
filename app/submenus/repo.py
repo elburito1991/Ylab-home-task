@@ -34,7 +34,7 @@ class SubmenuRepository:
         except IntegrityError:
             raise HTTPException(
                 status_code=409,
-                detail="Title must be uniq"
+                detail='Title must be uniq'
             )
         else:
             await MenusDAO.update_counters(menu_id, submenu=1)
@@ -47,7 +47,7 @@ class SubmenuRepository:
             raise SubmenuDontExistsException
 
         update_data = data.model_dump(exclude_unset=True)
-        filters = {"id": submenu_id, "menu_id": menu_id}
+        filters = {'id': submenu_id, 'menu_id': menu_id}
 
         try:
             updated_submenu = await SubmenusDAO.update_item(filters, **update_data)
@@ -55,7 +55,7 @@ class SubmenuRepository:
         except IntegrityError:
             raise HTTPException(
                 status_code=409,
-                detail="Title already exist, must be uniq"
+                detail='Title already exist, must be uniq'
             )
         else:
             return updated_submenu
@@ -69,10 +69,10 @@ class SubmenuRepository:
         dishes_count = await SubmenusDAO.get_count_of_children(submenu_id, Dishes)
         await MenusDAO.update_counters(menu_id, submenu=1, dishes=dishes_count, addition=False)
 
-        filters = {"id": submenu_id, "menu_id": menu_id}
+        filters = {'id': submenu_id, 'menu_id': menu_id}
         await SubmenusDAO.delete_item(filters)
 
         return {
-            "status": True,
-            "message": "The submenu has been deleted"
+            'status': True,
+            'message': 'The submenu has been deleted'
         }

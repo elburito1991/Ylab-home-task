@@ -16,21 +16,21 @@ class MenuService:
         self.cache = cache
 
     async def get_menu(self, menu_id: uuid.UUID) -> RowMapping:
-        menu = await self.cache.get_cache(f"menu.get_menu.{menu_id}")
+        menu = await self.cache.get_cache(f'menu.get_menu.{menu_id}')
         if not menu:
             menu = await self.dao.get_menu(menu_id)
-            await self.cache.set_cache(f"menu.get_menu.{menu_id}", menu)
+            await self.cache.set_cache(f'menu.get_menu.{menu_id}', menu)
         return menu
 
     async def get_menus(self) -> list[RowMapping]:
-        menus = await self.cache.get_cache("menu.get_menus")
+        menus = await self.cache.get_cache('menu.get_menus')
         if not menus:
             menus = await self.dao.get_all_menus()
-            await self.cache.set_cache("menu.get_menus", menus)
+            await self.cache.set_cache('menu.get_menus', menus)
         return menus
 
     async def add_menu(self, menu: SMenuAddIn) -> Menus:
-        await self.cache.delete_cache(["menu.get_menus"])
+        await self.cache.delete_cache(['menu.get_menus'])
         menu = await self.dao.add_menu(menu)
         return menu
 

@@ -34,7 +34,7 @@ class DishRepository:
         except IntegrityError:
             raise HTTPException(
                 status_code=409,
-                detail="Title must be uniq"
+                detail='Title must be uniq'
             )
 
         else:
@@ -49,7 +49,7 @@ class DishRepository:
             raise DishDontExistsException
 
         update_data = data.model_dump(exclude_unset=True)
-        filters = {"id": dish_id, "submenu_id": submenu_id}
+        filters = {'id': dish_id, 'submenu_id': submenu_id}
 
         try:
             updated_submenu = await DishesDAO.update_item(filters, **update_data)
@@ -57,7 +57,7 @@ class DishRepository:
         except IntegrityError:
             raise HTTPException(
                 status_code=409,
-                detail="Title already exist, must be uniq"
+                detail='Title already exist, must be uniq'
             )
         else:
             return updated_submenu
@@ -71,10 +71,10 @@ class DishRepository:
         await SubmenusDAO.update_counters(item_id=submenu_id, dishes=1, addition=False)
         await MenusDAO.update_counters(item_id=menu_id, dishes=1, addition=False)
 
-        filters = {"id": dish_id, "submenu_id": submenu_id}
+        filters = {'id': dish_id, 'submenu_id': submenu_id}
         await DishesDAO.delete_item(filters)
 
         return {
-            "status": True,
-            "message": "The dish has been deleted"
+            'status': True,
+            'message': 'The dish has been deleted'
         }

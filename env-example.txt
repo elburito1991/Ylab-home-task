@@ -17,6 +17,10 @@ TEST_DB_USER=postgres
 TEST_DB_PASS=postgres
 TEST_DB_NAME=<имя вашей тестовой бд без ковычек>
 
+- Настройки Redis:
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
 .env-app:
 MODE=DEV
 
