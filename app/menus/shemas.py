@@ -19,5 +19,3 @@ class SMenuAddOut(BaseModel):
 class SMenuUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
-
-

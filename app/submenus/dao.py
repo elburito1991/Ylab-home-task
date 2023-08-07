@@ -12,7 +12,7 @@ class SubmenusDAO(BaseDAO):
     model = Submenus
 
     @classmethod
-    async def update_counters(cls, item_id: uuid.UUID, dishes=0, addition=True):
+    async def update_counters(cls, item_id: uuid.UUID, dishes=0, addition=True) -> None:
         async with async_session_maker() as session:
             if addition:
                 query = update(cls.model) \

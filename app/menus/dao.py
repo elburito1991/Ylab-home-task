@@ -11,7 +11,7 @@ class MenusDAO(BaseDAO):
     model = Menus
 
     @classmethod
-    async def update_counters(cls, item_id: uuid.UUID, submenu=0, dishes=0, addition=True):
+    async def update_counters(cls, item_id: uuid.UUID, submenu=0, dishes=0, addition=True) -> None:
         if addition:
             async with async_session_maker() as session:
                 query = update(cls.model) \
